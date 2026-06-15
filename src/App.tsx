@@ -1,5 +1,6 @@
-import { useState } from 'react'
-import SignIn from './components/SignIn'
+
+import SignIn from './Pages/SignIn'
+import SignUp from './Pages/SignUp'
 
 function App() {
   
@@ -7,7 +8,7 @@ function App() {
   return (
     <>
       <SignIn/>
-     
+      <SignUp/>
     </>
   )
 }

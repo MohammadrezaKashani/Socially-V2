@@ -1,28 +1,13 @@
-import * as z from "zod";
-import { useForm } from 'react-hook-form';
-import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
-type formData=z.infer<typeof formDataSchema>
-const formDataSchema = z.object(
-  {
-    email: z.email({ error: "Invalied email address" }),
-    password: z.string().min(8, "Password must be at least 8 characters").regex(/[A-Z]/, "Password must contain at least one uppercase letter").regex(/[a-z]/, "Password must contain at least one lowercase letter").regex(/[0-9]/,"Password must contain at least one number")
-  }
-)
-function SignIn() {
-  const {
-    register,
-    handleSubmit,
-    formState:{errors}
-  } = useForm<formData>(
-    {
-       resolver:zodResolver(formDataSchema)
-     }
-    );
-  
-  const onSubmit = (data:formData) => {
-    console.log("اطلاعات ارسال شد:", data);
-  };
+const registerSchema = z.object({
+  Name: z.string().min(3, "Name must be at least 3 characters long "),
+  email: z.email("Invalid email address"),
+  password: z.string().min(8, "Password must be at least 6 characters long"),
+});
+
+const SignUp = () => {
+    
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#262626] p-12  text-[#a1a1a1]">
       <div className="flex w-full max-w-4xl bg-[#171717] rounded-xl border border-[#ffffff1a] overflow-hidden min-h-100 shadow-md">
@@ -30,11 +15,25 @@ function SignIn() {
         
         <div className="w-full md:w-1/2 p-8 md:p-7 flex flex-col justify-center">
           <div className="text-center mb-6">
-            <h1 className="text-foreground text-2xl font-semibold mb-2">Welcome back</h1>
-            <p className="text-[#a1a1a1] text-md">Login to your Socially account</p>
+            <h1 className="text-foreground text-2xl font-semibold mb-2">Create your account</h1>
+            <p className="text-[#a1a1a1] text-md">Enter your email below to create your account</p>
           </div>
 
-          <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+          <form className="space-y-4" >
+          <div className="mb-7">
+              <label htmlFor="email" className="block text-foreground text-sm font-medium mb-3">
+                Name
+              </label>
+              <input
+                id="Name"
+                type="Name"
+                placeholder="Enter your name"
+                className="w-full bg-[#1c1c1c] border border-[#333] rounded-lg py-1 px-3 text-foreground placeholder-[#a1a1a1] focus:outline-none  transition-all focus:border-white/50 focus:ring-4 focus:ring-white/10"
+                
+              />
+              
+            </div>
+
             <div className="mb-7">
               <label htmlFor="email" className="block text-foreground text-sm font-medium mb-3">
                 Email
@@ -44,9 +43,9 @@ function SignIn() {
                 type="email"
                 placeholder="m@example.com"
                 className="w-full bg-[#1c1c1c] border border-[#333] rounded-lg py-1 px-3 text-foreground placeholder-[#a1a1a1] focus:outline-none  transition-all focus:border-white/50 focus:ring-4 focus:ring-white/10"
-                {...register("email")}
+                
               />
-              {errors.email && <p className="text-red-500 text-xs mt-3">{errors.email.message}</p>}
+              
             </div>
 
             <div>
@@ -57,29 +56,29 @@ function SignIn() {
                 id="password"
                 type="password"
                 className="w-full bg-[#1c1c1c] border border-[#333] rounded-lg py-1 px-3 text-foreground focus:outline-none  transition-all focus:border-white/50 focus:ring-4 focus:ring-white/10"
-                {...register("password")}
+                
               />
-               {errors.password && <p className="text-red-500 text-xs mt-3">{errors.password.message}</p>}
+               
             </div>
 
             <button
               type="submit"
               className="w-full bg-[#e1e1e1] hover:bg-white text-black font-semibold py-2 px-4 rounded-lg mt-4 transition-colors"
             >
-              Login
+              Create account
             </button>
           </form>
 
           <div className="text-center mt-6">
             <p className="text-sm text-[#a1a1a1]">
-              Don't have an account? <a href="#" className="text-[#a1a1a1] underline underline-offset-4 hover:text-foreground">Sign up</a>
+           Already have an account? <a href="#" className="text-[#a1a1a1] underline underline-offset-4 hover:text-foreground">Sign In</a>
             </p>
           </div>
         </div>
 
        
         <div className="hidden md:block md:w-1/2 bg-[#262626] border-l border-[#ffffff1a]">
-            <img src="" alt="" />
+            <img className="object-cover h-full" src="src/Images/socially-v2-Dark.png" alt="Socially" />
         </div>
       </div>
 
@@ -93,4 +92,4 @@ function SignIn() {
   )
 }
 
-export default SignIn;
+export default SignUp

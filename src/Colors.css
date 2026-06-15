@@ -1,5 +1,11 @@
 @theme {
     --color-Background : #0a0a0a ;
     --color-foreground : #fafafa ;
-
+    --color-card : #171717  ;
+    --color-primary : #e5e5e5 ;
+    --color-secondary : #262626 ;
+    --color-muted-foreground : #a1a1a1 ;
+    --color-Likes : #e40014  ;
+    --color-Comments : #2c73e6  ;
+    
 }

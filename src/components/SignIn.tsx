@@ -30,33 +30,33 @@ function SignIn() {
         
         <div className="w-full md:w-1/2 p-8 md:p-7 flex flex-col justify-center">
           <div className="text-center mb-6">
-            <h1 className="text-[#fafafa] text-2xl font-semibold mb-2">Welcome back</h1>
+            <h1 className="text-foreground text-2xl font-semibold mb-2">Welcome back</h1>
             <p className="text-[#a1a1a1] text-md">Login to your Socially account</p>
           </div>
 
           <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-7">
-              <label htmlFor="email" className="block text-[#fafafa] text-sm font-medium mb-3">
+              <label htmlFor="email" className="block text-foreground text-sm font-medium mb-3">
                 Email
               </label>
               <input
                 id="email"
                 type="email"
                 placeholder="m@example.com"
-                className="w-full bg-[#1c1c1c] border border-[#333] rounded-lg py-1 px-3 text-[#fafafa] placeholder-[#a1a1a1] focus:outline-none  transition-all focus:border-white/50 focus:ring-4 focus:ring-white/10"
+                className="w-full bg-[#1c1c1c] border border-[#333] rounded-lg py-1 px-3 text-foreground placeholder-[#a1a1a1] focus:outline-none  transition-all focus:border-white/50 focus:ring-4 focus:ring-white/10"
                 {...register("email")}
               />
               {errors.email && <p className="text-red-500 text-xs mt-3">{errors.email.message}</p>}
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-[#fafafa] text-sm font-medium mb-3" >
+              <label htmlFor="password" className="block text-foreground text-sm font-medium mb-3" >
                 Password
               </label>
               <input
                 id="password"
                 type="password"
-                className="w-full bg-[#1c1c1c] border border-[#333] rounded-lg py-1 px-3 text-[#fafafa] focus:outline-none  transition-all focus:border-white/50 focus:ring-4 focus:ring-white/10"
+                className="w-full bg-[#1c1c1c] border border-[#333] rounded-lg py-1 px-3 text-foreground focus:outline-none  transition-all focus:border-white/50 focus:ring-4 focus:ring-white/10"
                 {...register("password")}
               />
                {errors.password && <p className="text-red-500 text-xs mt-3">{errors.password.message}</p>}
@@ -72,7 +72,7 @@ function SignIn() {
 
           <div className="text-center mt-6">
             <p className="text-sm text-[#a1a1a1]">
-              Don't have an account? <a href="#" className="text-[#a1a1a1] underline underline-offset-4 hover:text-[#fafafa]">Sign up</a>
+              Don't have an account? <a href="#" className="text-[#a1a1a1] underline underline-offset-4 hover:text-foreground">Sign up</a>
             </p>
           </div>
         </div>

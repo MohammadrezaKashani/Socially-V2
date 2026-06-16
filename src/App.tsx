@@ -1,6 +1,6 @@
 
-import SignIn from './Pages/SignIn'
-import SignUp from './Pages/SignUp'
+import SignIn from './components/Pages/SignIn'
+import SignUp from './components/Pages/SignUp'
 
 function App() {
   

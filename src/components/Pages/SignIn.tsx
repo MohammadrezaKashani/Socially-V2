@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const formDataSchema = z.object(
   {
     email: z.email({ error: "Invalied email address" }),
-    password: z.string().min(8, "Password must be at least 8 characters").regex(/[A-Z]/, "Password must contain at least one uppercase letter").regex(/[a-z]/, "Password must contain at least one lowercase letter").regex(/[0-9]/,"Password must contain at least one number")
+    password: z.string().min(8, "Password must be at least 8 characters")
   }
 )
 type formData=z.infer<typeof formDataSchema>
@@ -80,7 +80,7 @@ function SignIn() {
 
        
         <div className="hidden md:block md:w-1/2 bg-secondary border-l border-[#ffffff1a]">
-            <img className="object-cover h-full" src="src/Images/socially-v2-Dark.png" alt="socially" />
+            <img className="object-cover h-full" src="src/assets/Images/socially-v2-Dark.png" alt="socially" />
         </div>
       </div>
 

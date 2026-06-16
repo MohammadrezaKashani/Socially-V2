@@ -2,13 +2,14 @@ import * as z from "zod";
 import { useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
 
-type formData=z.infer<typeof formDataSchema>
+
 const formDataSchema = z.object(
   {
     email: z.email({ error: "Invalied email address" }),
     password: z.string().min(8, "Password must be at least 8 characters").regex(/[A-Z]/, "Password must contain at least one uppercase letter").regex(/[a-z]/, "Password must contain at least one lowercase letter").regex(/[0-9]/,"Password must contain at least one number")
   }
 )
+type formData=z.infer<typeof formDataSchema>
 function SignIn() {
   const {
     register,
@@ -43,7 +44,7 @@ function SignIn() {
                 id="email"
                 type="email"
                 placeholder="m@example.com"
-                className="w-full bg-[#1c1c1c] border border-[#333] rounded-lg py-1 px-3 text-foreground placeholder-muttext-muted-foreground focus:outline-none  transition-all focus:border-white/50 focus:ring-4 focus:ring-white/10"
+                className="w-full bg-[#1c1c1c] border border-[#333] rounded-lg py-1 px-3 text-foreground placeholder:text-muted-foreground focus:outline-none  transition-all focus:border-white/50 focus:ring-4 focus:ring-white/10"
                 {...register("email")}
               />
               {errors.email && <p className="text-red-500 text-xs mt-3">{errors.email.message}</p>}

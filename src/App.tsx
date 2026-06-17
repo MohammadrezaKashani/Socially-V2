@@ -18,7 +18,7 @@ function App() {
         <div className="hidden md:block md:col-span-3">سمت راست</div>
         <div className='md:col-span-6 space-y-6'>وسط</div>
         <div className='hidden md:block md:col-span-3'> <RecommendedUsers/></div>
-      </div>
+      </div> 
       
        
       

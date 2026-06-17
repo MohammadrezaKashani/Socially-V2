@@ -16,7 +16,7 @@ function CreatePosts() {
             minRows={2}
             placeholder="Whats on your mind?"
             className="text-primary resize-none w-full outline-none pt-2 placeholder:text-muted-foreground"
-          ></TextareaAutosize>
+          />
         </div>
 
         <div className="border-t border-border my-3 mx-auto w-[95%]"></div>

@@ -5,7 +5,7 @@ import { FiLink } from "react-icons/fi";
 
 function ProfileCard() {
   return (
-      <div className=" hidden lg:flex lg:flex-col bg-card text-foreground  justify-center items-center rounded-xl border py-6  gap-6 border-border w-1/5 mx-2 mt-5.5">
+      <div className=" hidden lg:flex lg:flex-col bg-card text-foreground  justify-center items-center rounded-xl border py-6  gap-6 border-border">
         <section>
             <button className="flex flex-col items-center cursor-pointer w-full">
                 <img className="size-23 " src="src/assets/Images/Profilepic.png" alt="" />

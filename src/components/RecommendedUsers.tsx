@@ -1,7 +1,7 @@
 function RecommendedUsers() {
   return (
       <>
-          <body className="bg-background">
+          
             
          
       <div className="bg-card rounded-xl border border-border">
@@ -21,7 +21,7 @@ function RecommendedUsers() {
           </button>
         </div>
               </div>
-               </body>
+              
     </>
   );
 }

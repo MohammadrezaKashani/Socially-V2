@@ -8,7 +8,7 @@ function ProfileCard() {
       <div className=" hidden lg:flex lg:flex-col bg-card text-foreground  justify-center items-center rounded-xl border py-6  gap-6 border-border">
         <section>
             <button className="flex flex-col items-center cursor-pointer w-full">
-                <img className="size-23 " src="src/assets/Images/Profilepic.png" alt="" />
+                <img className="size-23 " src="src/assets/Images/Profilepic.png" alt="people" />
                 <h2 className="font-extrabold">
                     Name
                 </h2>

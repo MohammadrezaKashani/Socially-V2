@@ -8,11 +8,11 @@ function Header() {
     const [openMenu, setOpenMenu] = useState(false)
   return (
       <>
-          <header className='bg-background/95 sticky top-0 backdrop-blur-md px-2 py-5 border-b border-[#ffffff1a]'>
+          <header className='bg-background/95 sticky top-0 backdrop-blur-md px-2 py-5 border-b border-border'>
               <div className='flex justify-between'>
                   <a href="#" className='text-primary text-2xl'>Socially</a>
                   <div className='flex gap-6'>
-                      <button className='bg-card  rounded-md flex items-center justify-center w-9 h-9 shadow-xl border border-[#ffffff1a]  hover:bg-asent'><FiMoon className="w-5 h-5 text-primary" /></button>
+                      <button className='bg-card  rounded-md flex items-center justify-center w-9 h-9 shadow-xl border border-border  hover:bg-asent'><FiMoon className="w-5 h-5 text-primary" /></button>
                       <button   id='' className='bg-primary  rounded-md flex items-center justify-center w-9 h-9 md:hidden'onClick={() => setOpenMenu(true)}><img src={menuIcon} alt="menu" /></button>
                       <nav className='flex gap-10'>
                           <a href="#" className=' gap-2 justify-center items-center text-primary text-sm hidden md:flex '>
@@ -36,7 +36,7 @@ function Header() {
               
           </header>
           {openMenu && (
-          <aside className='fixed top-0 right-0 w-3/4 h-full bg-card p-6 shadow-lg border-l border-[#ffffff1a] md:hidden '>
+          <aside className='fixed top-0 right-0 w-3/4 h-full bg-card p-6 shadow-lg border-l border-border md:hidden '>
                   <div className='flex justify-between'>
                       <span className='text-primary font-bold'>Menu</span>
           <button

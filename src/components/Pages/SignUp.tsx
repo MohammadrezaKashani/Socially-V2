@@ -25,7 +25,7 @@ function SignUp()  {
     
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-secondary p-12  text-muted-foreground">
-      <div className="flex w-full max-w-4xl bg-card rounded-xl border border-[#ffffff1a] overflow-hidden min-h-100 shadow-md">
+      <div className="flex w-full max-w-4xl bg-card rounded-xl border border-border overflow-hidden min-h-100 shadow-md">
         
         
         <div className="w-full md:w-1/2 p-8 md:p-7 flex flex-col justify-center">
@@ -92,7 +92,7 @@ function SignUp()  {
         </div>
 
        
-        <div className="hidden md:block md:w-1/2 bg-secondary border-l border-[#ffffff1a]">
+        <div className="hidden md:block md:w-1/2 bg-secondary border-l border-border">
             <img className="object-cover h-full" src="src/assets/Images/socially-v2-Dark.png" alt="Socially" />
         </div>
       </div>

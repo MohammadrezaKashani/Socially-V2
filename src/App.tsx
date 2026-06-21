@@ -7,6 +7,7 @@ import ProfileCard from './components/ProfileCard'
 import CreatePosts from './components/CreatePosts'
 import Posts from './components/Posts'
 import Profile from './components/pages/Profile'
+import Notifications from './components/pages/Notifications'
 
 
 
@@ -29,6 +30,7 @@ function App() {
         <div className='hidden md:block md:col-span-3'> <RecommendedUsers/></div>
       </div> 
       </div>
+      {/* <Notifications/> */}
        
       
       

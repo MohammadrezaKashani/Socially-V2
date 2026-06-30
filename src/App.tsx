@@ -8,6 +8,7 @@ import CreatePosts from './components/CreatePosts'
 import Posts from './components/Posts'
 import Profile from './components/pages/Profile'
 import Notifications from './components/pages/Notifications'
+import Layout from './components/Layout'
 
 
 
@@ -18,7 +19,7 @@ function App() {
     <>
       {/* <SignIn/>
       <SignUp/> */}
-      <Header />
+      {/* <Header />
       <div className=''>
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 p-4">
         <div className="hidden md:block md:col-span-3"><ProfileCard/></div>
@@ -29,8 +30,13 @@ function App() {
         </div>
         <div className='hidden md:block md:col-span-3'> <RecommendedUsers/></div>
       </div> 
-      </div>
-      {/* <Notifications/> */}
+      </div> */}
+      {/* <Profile/> */}
+      <Layout rightSidebar={<RecommendedUsers />} >
+        <CreatePosts />
+        <Posts />
+        </Layout>
+      
        
       
       

@@ -8,7 +8,7 @@ function Header() {
     const [openMenu, setOpenMenu] = useState(false)
   return (
       <>
-          <header className='bg-background sticky top-0 backdrop-blur-md px-2 py-5 border-b border-border'>
+          <header className='bg-background sticky top-0 backdrop-blur-md px-2 py-5 border-b border-border '>
               <div className='flex justify-between'>
                   <a href="#" className='text-primary text-2xl'>Socially</a>
                   <div className='flex gap-6'>

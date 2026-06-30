@@ -1,4 +1,3 @@
-import React from 'react'
 import Commented from './Commented'
 import Liked from './Liked'
 
@@ -18,7 +17,7 @@ function NotificationsCard() {
         </div>
        
       
-        <div className='max-h-100 overflow-y-auto pr-2 space-y-4 px-5 py-7 custom-scrollbar'>
+        <div className='max-h-90 overflow-y-auto pr-2 space-y-4 px-5 py-7 custom-scrollbar'>
           <Commented />
          <Liked/><Commented />
          <Liked/>

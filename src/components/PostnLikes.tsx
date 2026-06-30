@@ -1,11 +1,24 @@
+import { useState } from "react";
 
 function PostnLikes() {
+  const [activeTab, setActiveTab] = useState("Posts");  
   return (
-    <div className="flex items-center justify-center bg-card rounded-xl py-1 px-1 gap-1 w-full">
-      <button id="deactive" className="cursor-pointer hover:bg-neutral-800 w-1/2 text-neutral-400 rounded-lg">Posts</button>
-      <button id="active" className="cursor-pointer hover:bg-neutral-800 bg-neutral-700 w-1/2 border text-foreground border-border rounded-lg">Likes</button>
+    <div className="flex w-full items-center justify-between rounded-xl bg-card p-1 gap-1">
+      <button
+        className={`flex-1 py-1 rounded-lg transition-all duration-100 font-medium ${activeTab === "Posts" ?  "bg-neutral-800 text-white border border-neutral-600 shadow-sm" : "text-neutral-500 "}`}
+        onClick={() => setActiveTab("Posts")}
+      >
+        Posts
+      </button>
+      
+      <button
+        className={`flex-1 py-1 rounded-lg transition-all duration-100 font-medium ${activeTab === "Likes" ?  "bg-neutral-800 text-white border border-neutral-600 shadow-sm" : "text-neutral-500 "}`}
+        onClick={() => setActiveTab("Likes")}
+      >
+        Likes
+      </button>
     </div>
-  )
+  );
 }
 
-export default PostnLikes
+export default PostnLikes;

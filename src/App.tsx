@@ -1,20 +1,15 @@
-
-import SignIn from './components/pages/SignIn'
-import SignUp from './components/pages/SignUp'
-import Header from './components/Header'
-import RecommendedUsers from './components/RecommendedUsers' 
-import ProfileCard from './components/ProfileCard'
-import CreatePosts from './components/CreatePosts'
-import Posts from './components/Posts'
-import Profile from './components/pages/Profile'
-import Notifications from './components/pages/Notifications'
-import Layout from './components/Layout'
-
-
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Header from "./components/Header";
+import RecommendedUsers from "./components/RecommendedUsers";
+import ProfileCard from "./components/ProfileCard";
+import CreatePosts from "./components/CreatePosts";
+import Posts from "./components/Posts";
+import Profile from "./pages/Profile";
+import Notifications from "./pages/Notifications";
+import Layout from "./components/Layout";
 
 function App() {
-  
-
   return (
     <>
       {/* <SignIn/>
@@ -32,16 +27,12 @@ function App() {
       </div> 
       </div> */}
       {/* <Profile/> */}
-      <Layout rightSidebar={<RecommendedUsers />} >
+      <Layout rightSidebar={<RecommendedUsers />}>
         <CreatePosts />
         <Posts />
-        </Layout>
-      
-       
-      
-      
+      </Layout>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -8,6 +8,7 @@ import Posts from "./components/Posts";
 import Profile from "./pages/Profile";
 import Notifications from "./pages/Notifications";
 import Layout from "./components/Layout";
+import EditProfileCard from "./components/EditProfileCard";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
       <Layout rightSidebar={<RecommendedUsers />}>
         <CreatePosts />
         <Posts />
+        <EditProfileCard />
       </Layout>
     </>
   );

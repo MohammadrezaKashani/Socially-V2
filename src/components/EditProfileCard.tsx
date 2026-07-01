@@ -1,9 +1,15 @@
 import TextareaAutosize from 'react-textarea-autosize';
+import { IoClose } from "react-icons/io5";
 
 function EditProfileCard() {
   return (
     <div className="text-white fixed inset-0 z-50 flex items-center justify-center bg-black/50 ">
         <div className="sm:w-[90%] md:w-[40%] xl:w-1/4 rounded-xl bg-background border border-border p-7">
+          <div className='flex justify-end'>
+            <button className='text-neutral-400 cursor-pointer hover:text-foreground transition-colors duration-150'>
+            <IoClose className='size-5' />
+            </button>
+          </div>
           <h3 className="font-bold text-xl">
             Edit profile
           </h3>
@@ -15,7 +21,7 @@ function EditProfileCard() {
                 Name
               </span>
               <input
-               className="bg-card border border-border p-2 rounded-xl font-semibold text-sm" type="text" placeholder="Enter your name"
+               className="bg-card border border-border p-2 rounded-xl font-semibold text-sm selection:bg-foreground selection:text-background" type="text" placeholder="Enter your name"
                 />
                 <span className="font-semibold text-sm">
                     Bio
@@ -23,19 +29,19 @@ function EditProfileCard() {
               <TextareaAutosize
             minRows={2}
             placeholder="Enter your bio"
-            className="text-primary resize-none w-full bg-card border border-border p-2 rounded-xl font-semibold text-sm"
+            className="text-primary resize-none w-full bg-card border border-border p-2 rounded-xl font-semibold text-sm selection:bg-foreground selection:text-background"
           />
               <span className="font-semibold text-sm">
                 Location
                 </span>
               <input
-               className="bg-card border border-border p-2 rounded-xl font-semibold text-sm" type="text" placeholder="Enter your location" 
+               className="bg-card border border-border p-2 rounded-xl font-semibold text-sm selection:bg-foreground selection:text-background" type="text" placeholder="Enter your location" 
                />
               <span className="font-semibold text-sm">
                 Website
                 </span>
               <input
-               className="bg-card border border-border p-2 rounded-xl font-semibold text-sm" type="text" placeholder="Enter your website" 
+               className="bg-card border border-border p-2 rounded-xl font-semibold text-sm selection:bg-foreground selection:text-background" type="text" placeholder="Enter your website" 
                />
           </div>
           <div className='flex flex-col sm:flex-row  justify-end items-center gap-3 mt-7'>

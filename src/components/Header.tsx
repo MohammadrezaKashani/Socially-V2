@@ -3,7 +3,7 @@ import menuIcon from "../assets/icons/menu.svg";
 import { HiOutlineHome } from "react-icons/hi";
 import { FiSun, FiMoon, FiBell, FiUser, FiLogOut, FiX } from "react-icons/fi";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 function Header() {
   const [openMenu, setOpenMenu] = useState(false);
@@ -34,7 +34,7 @@ function Header() {
                 Home
               </Link>
               <Link
-                to="notifications"
+                to="/notifications"
                 className=" gap-2 justify-center items-center text-primary text-sm hidden md:flex"
               >
                 <FiBell className="w-5 h-5 text-primary" />
@@ -42,7 +42,7 @@ function Header() {
               </Link>
 
               <Link
-                to="profile"
+                to="/profile"
                 className=" gap-2 justify-center items-center text-primary text-sm hidden md:flex"
               >
                 <FiUser className="w-5 h-5 text-primary" />

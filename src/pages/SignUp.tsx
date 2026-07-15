@@ -5,6 +5,8 @@ import { useMutation } from "@tanstack/react-query";
 import api from "../lib/axios";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 
 const registerSchema = z.object({
   name: z.string().min(3, "Name must be at least 3 characters long "),
@@ -139,12 +141,12 @@ function SignUp() {
           <div className="text-center mt-6">
             <p className="text-sm text-muted-foreground">
               Already have an account?{" "}
-              <a
-                href="#"
+              <Link
+                to="/signIn"
                 className="text-muted-foreground underline underline-offset-4 hover:text-foreground"
               >
                 Sign In
-              </a>
+              </Link>
             </p>
           </div>
         </div>

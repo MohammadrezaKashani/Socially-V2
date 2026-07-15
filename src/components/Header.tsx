@@ -3,10 +3,26 @@ import menuIcon from "../assets/icons/menu.svg";
 import { HiOutlineHome } from "react-icons/hi";
 import { FiSun, FiMoon, FiBell, FiUser, FiLogOut, FiX } from "react-icons/fi";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../lib/axios";
+import { useMutation } from "@tanstack/react-query";
 
 function Header() {
+  const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
+
+  async function logout() {
+    const res = await api.post("/api/authentication/logout");
+    return res.data;
+  }
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: logout,
+    onSuccess: () => {
+      setOpenMenu(false);
+      navigate("/signIn");
+    },
+  });
   return (
     <>
       <header className="bg-background sticky top-0 backdrop-blur-md px-2 py-5 border-b border-border ">
@@ -27,7 +43,7 @@ function Header() {
             </button>
             <nav className="flex gap-10">
               <Link
-                to="/"
+                to="/home"
                 className=" gap-2 justify-center items-center text-primary text-sm hidden md:flex "
               >
                 <HiOutlineHome className="w-5 h-5 text-primary" />
@@ -49,12 +65,14 @@ function Header() {
                 Profile
               </Link>
 
-              <a
-                href="#"
-                className=" gap-2 justify-center items-center text-primary text-sm hidden md:flex"
+              <button
+                type="button"
+                onClick={() => mutate()}
+                disabled={isPending}
+                className=" gap-2 justify-center items-center text-primary text-sm hidden md:flex cursor-pointer"
               >
                 <FiLogOut className="w-5 h-5 text-primary" />
-              </a>
+              </button>
             </nav>
           </div>
         </div>
@@ -69,21 +87,33 @@ function Header() {
           </div>
 
           <nav className="flex flex-col gap-6">
-            <a href="#" className="flex gap-2 text-primary items-center">
+            <Link to="/home" className="flex gap-2 text-primary items-center">
               <HiOutlineHome /> Home
-            </a>
+            </Link>
 
-            <a href="#" className="flex gap-2 text-primary items-center">
+            <Link
+              to="/notifications"
+              className="flex gap-2 text-primary items-center"
+            >
               <FiBell /> Notifications
-            </a>
+            </Link>
 
-            <a href="#" className="flex gap-2 text-primary items-center">
+            <Link
+              to="/profile"
+              className="flex gap-2 text-primary items-center"
+            >
               <FiUser /> Profile
-            </a>
+            </Link>
 
-            <a href="#" className="flex gap-2 text-primary items-center">
+            <button
+              
+              type="button"
+              onClick={() => mutate()}
+              disabled={isPending}
+              className="flex gap-2 text-primary items-center  cursor-pointer"
+            >
               <FiLogOut /> Logout
-            </a>
+            </button>
           </nav>
         </aside>
       )}

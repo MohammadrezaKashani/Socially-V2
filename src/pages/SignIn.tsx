@@ -1,6 +1,11 @@
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router";
+import { useMutation } from "@tanstack/react-query";
+import api from "../lib/axios";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 const formDataSchema = z.object({
   email: z.email({ error: "Invalied email address" }),
@@ -8,6 +13,17 @@ const formDataSchema = z.object({
 });
 type formData = z.infer<typeof formDataSchema>;
 function SignIn() {
+  const navigate = useNavigate();
+  async function login(formdata: formData) {
+    const res = await api.post("/api/authentication/login", formdata);
+    return res.data;
+  }
+  const { mutate, isPending, isError, error } = useMutation({
+    mutationFn: login,
+    onSuccess: () => {
+      navigate("/home");
+    },
+  });
   const {
     register,
     handleSubmit,
@@ -17,7 +33,7 @@ function SignIn() {
   });
 
   const onSubmit = (data: formData) => {
-    console.log("اطلاعات ارسال شد:", data);
+    mutate(data);
   };
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-secondary p-12  text-muted-foreground">
@@ -78,19 +94,24 @@ function SignIn() {
               type="submit"
               className="w-full bg-[#e1e1e1] hover:bg-white text-black font-semibold py-2 px-4 rounded-lg mt-4 transition-colors"
             >
-              Login
+              {isPending ? "Logging in..." : "Login"}
+              {isError && axios.isAxiosError(error) && (
+                <p className="text-red-500 text-sm mt-3">
+                  {error.response?.data?.error || error.response?.data?.message}
+                </p>
+              )}
             </button>
           </form>
 
           <div className="text-center mt-6">
             <p className="text-sm text-muted-foreground">
               Don't have an account?{" "}
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="text-muted-foreground underline underline-offset-4 hover:text-foreground"
               >
                 Sign up
-              </a>
+              </Link>
             </p>
           </div>
         </div>

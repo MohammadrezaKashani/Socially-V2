@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../lib/axios";
 import { useMutation } from "@tanstack/react-query";
+import { useSession } from "../hooks/useSession";
 
 function Header() {
   const navigate = useNavigate();
@@ -15,6 +16,9 @@ function Header() {
     const res = await api.post("/api/authentication/logout");
     return res.data;
   }
+  const { data } = useSession();
+  const user = data?.data?.user;
+  const isLoggedIn = !!user;
 
   const { mutate, isPending } = useMutation({
     mutationFn: logout,
@@ -27,7 +31,7 @@ function Header() {
     <>
       <header className="bg-background sticky top-0 backdrop-blur-md px-2 py-5 border-b border-border ">
         <div className="flex justify-between">
-          <a href="#" className="text-primary text-2xl">
+          <a href="#" className="text-primary text-2xl ml-3.5">
             Socially
           </a>
           <div className="flex gap-6">
@@ -35,44 +39,54 @@ function Header() {
               <FiMoon className="w-5 h-5 text-primary" />
             </button>
             <button
-              id=""
               className="bg-primary  rounded-md flex items-center justify-center w-9 h-9 md:hidden"
               onClick={() => setOpenMenu(true)}
             >
               <img src={menuIcon} alt="menu" />
             </button>
-            <nav className="flex gap-10">
+            <nav className="flex gap-8">
               <Link
-                to="/home"
+                to={isLoggedIn ? "/home" : "#"}
                 className=" gap-2 justify-center items-center text-primary text-sm hidden md:flex "
               >
                 <HiOutlineHome className="w-5 h-5 text-primary" />
                 Home
               </Link>
-              <Link
-                to="/notifications"
-                className=" gap-2 justify-center items-center text-primary text-sm hidden md:flex"
-              >
-                <FiBell className="w-5 h-5 text-primary" />
-                Notifications
-              </Link>
+              {isLoggedIn ? (
+                <>
+                  <Link
+                    to="/notifications"
+                    className=" gap-2 justify-center items-center text-primary text-sm hidden md:flex"
+                  >
+                    <FiBell className="w-5 h-5 text-primary" />
+                    Notifications
+                  </Link>
 
-              <Link
-                to="/profile"
-                className=" gap-2 justify-center items-center text-primary text-sm hidden md:flex"
-              >
-                <FiUser className="w-5 h-5 text-primary" />
-                Profile
-              </Link>
+                  <Link
+                    to="/profile"
+                    className=" gap-2 justify-center items-center text-primary text-sm hidden md:flex"
+                  >
+                    <FiUser className="w-5 h-5 text-primary" />
+                    Profile
+                  </Link>
 
-              <button
-                type="button"
-                onClick={() => mutate()}
-                disabled={isPending}
-                className=" gap-2 justify-center items-center text-primary text-sm hidden md:flex cursor-pointer"
-              >
-                <FiLogOut className="w-5 h-5 text-primary" />
-              </button>
+                  <button
+                    type="button"
+                    onClick={() => mutate()}
+                    disabled={isPending}
+                    className=" gap-2 justify-center items-center text-primary text-sm hidden md:flex cursor-pointer"
+                  >
+                    <FiLogOut className="w-5 h-5 text-primary" />
+                  </button>
+                </>
+              ) : (
+                <Link
+                  to="/signIn"
+                  className="gap-2 justify-center items-center text-card text-sm hidden md:flex bg-primary py-2 px-4 font-bold rounded-md"
+                >
+                  Sign in
+                </Link>
+              )}
             </nav>
           </div>
         </div>
@@ -86,34 +100,46 @@ function Header() {
             </button>
           </div>
 
-          <nav className="flex flex-col gap-6">
-            <Link to="/home" className="flex gap-2 text-primary items-center">
+          <nav className="flex flex-col gap-5">
+            <Link
+              to={isLoggedIn ? "/home" : "#"}
+              className="flex gap-2 text-primary items-center justify-center hover:bg-asent hover:rounded-md py-1"
+            >
               <HiOutlineHome /> Home
             </Link>
+            {isLoggedIn ? (
+              <>
+                <Link
+                  to="/notifications"
+                  className="flex gap-2 text-primary items-center justify-center hover:bg-asent hover:rounded-md py-1"
+                >
+                  <FiBell /> Notifications
+                </Link>
 
-            <Link
-              to="/notifications"
-              className="flex gap-2 text-primary items-center"
-            >
-              <FiBell /> Notifications
-            </Link>
+                <Link
+                  to="/profile"
+                  className="flex gap-2 text-primary items-center justify-center hover:bg-asent hover:rounded-md py-1"
+                >
+                  <FiUser /> Profile
+                </Link>
 
-            <Link
-              to="/profile"
-              className="flex gap-2 text-primary items-center"
-            >
-              <FiUser /> Profile
-            </Link>
-
-            <button
-              
-              type="button"
-              onClick={() => mutate()}
-              disabled={isPending}
-              className="flex gap-2 text-primary items-center  cursor-pointer"
-            >
-              <FiLogOut /> Logout
-            </button>
+                <button
+                  type="button"
+                  onClick={() => mutate()}
+                  disabled={isPending}
+                  className="flex gap-2 text-primary items-center  cursor-pointer justify-center hover:bg-asent hover:rounded-md py-1"
+                >
+                  <FiLogOut /> Logout
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/signIn"
+                className="w-full bg-primary text-card text-center rounded-md py-1"
+              >
+                signIn
+              </Link>
+            )}
           </nav>
         </aside>
       )}

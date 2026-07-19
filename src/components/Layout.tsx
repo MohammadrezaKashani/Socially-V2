@@ -26,11 +26,17 @@ function Layout({ children, rightSidebar, variant="feed" }: LayoutProps) {
               : "md:col-span-9"
           }
         >
-          {children}
+         
+            {children}
+          
         </div>
 
         {variant === "feed" && (
-          <div className="hidden md:block md:col-span-3">{rightSidebar}</div>
+          <div className="hidden md:block md:col-span-3">
+             <div className="sticky top-24 ">
+            {rightSidebar}
+          </div>
+          </div>
         )}
       </main>
     </div>

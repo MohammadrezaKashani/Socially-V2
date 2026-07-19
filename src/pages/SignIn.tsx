@@ -2,7 +2,7 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "../lib/axios";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -13,6 +13,7 @@ const formDataSchema = z.object({
 });
 type formData = z.infer<typeof formDataSchema>;
 function SignIn() {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   async function login(formdata: formData) {
     const res = await api.post("/api/authentication/login", formdata);
@@ -21,6 +22,7 @@ function SignIn() {
   const { mutate, isPending, isError, error } = useMutation({
     mutationFn: login,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["session"] });
       navigate("/home");
     },
   });
@@ -107,7 +109,7 @@ function SignIn() {
             <p className="text-sm text-muted-foreground">
               Don't have an account?{" "}
               <Link
-                to="/"
+                to="/signUp"
                 className="text-muted-foreground underline underline-offset-4 hover:text-foreground"
               >
                 Sign up

@@ -1,7 +1,11 @@
 import { IoLocationOutline } from "react-icons/io5";
 import { FiLink } from "react-icons/fi";
+import { useSession } from "../hooks/useSession";
+import { userName } from "../utils/userName";
 
 function ProfileCard() {
+  const { data } = useSession();
+  const user = data?.data?.user;
   return (
     <div className="hidden lg:flex flex-col items-center bg-card text-foreground rounded-xl border border-border p-6 gap-6 w-full ">
       
@@ -11,8 +15,8 @@ function ProfileCard() {
           src="src/assets/Images/Profilepic.png" 
           alt="people" 
         />
-        <h2 className="font-extrabold text-lg">Name</h2>
-        <p className="text-muted-foreground text-sm">Your Id .....................</p>
+        <h2 className="font-extrabold text-lg">{user?.name}</h2>
+        <p className="text-muted-foreground text-sm">{userName(user?.email)}</p>
       </button>
 
       <div className="w-full border-t border-border"></div>

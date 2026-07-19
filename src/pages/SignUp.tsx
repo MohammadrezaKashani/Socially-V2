@@ -1,28 +1,25 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "../lib/axios";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-
 const registerSchema = z.object({
   name: z.string().min(3, "Name must be at least 3 characters long "),
   email: z.email({ error: "Invalied email address" }),
-  password: z
-    .string()
-    .min(8, "Password must be at least 8 characters")
-    // .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
-    // .regex(/[a-z]/, "Password must contain at least one lowercase letter")
-    // .regex(/[0-9]/, "Password must contain at least one number"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+  // .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+  // .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+  // .regex(/[0-9]/, "Password must contain at least one number"),
 });
 
 type formData = z.infer<typeof registerSchema>;
 function SignUp() {
   const navigate = useNavigate();
-
+  const queryClient = useQueryClient();
   async function getData(formdata: formData) {
     const res = await api.post("/api/authentication/register", formdata);
     return res.data;
@@ -30,9 +27,10 @@ function SignUp() {
 
   const { mutate, isPending, isError, error, isSuccess, data } = useMutation({
     mutationFn: getData,
-    onSuccess: ()=>{
-      navigate("/home")
-    }
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["session"] });
+      navigate("/home");
+    },
   });
 
   const {

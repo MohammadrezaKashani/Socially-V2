@@ -52,11 +52,11 @@ function Posts() {
                   </span>
                   <span className="text-muted-foreground">
                     {" "}
-                    {post.author?.email}
+                    @{userName(post.author?.email)}
                   </span>
                 </div>
                 <span className="text-muted-foreground">
-                  {new Date(post.createdAt).toLocaleDateString()}
+                  {timeAgo(post.createdAt)}
                 </span>
               </div>
               <div className=" gap-5 hidden md:flex">

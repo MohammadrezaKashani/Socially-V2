@@ -3,6 +3,7 @@ import { Send } from "lucide-react";
 import TextareaAutosize from "react-textarea-autosize";
 import api from "../lib/axios";
 import { useState } from "react";
+import { useCreatePost } from "../hooks/useCreatePost";
 
 async function createPost(payload: { content: string }) {
   const res = await api.post("/api/posts", payload);
@@ -12,22 +13,22 @@ async function createPost(payload: { content: string }) {
 function CreatePosts() {
   const [formData, setFormData] = useState({ content: "" });
 
-  const queryClient = useQueryClient();
-
-  const { mutate ,isPending} = useMutation({
-    mutationFn: createPost,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["posts"] });
-      setFormData({ content: "" });
-    },
-  });
+  const { mutate, isPending } = useCreatePost();
   return (
     <form
       className="border border-border bg-card p-5 rounded-xl"
       onSubmit={(e) => {
         e.preventDefault();
         if (!formData.content.trim()) return;
-        mutate(formData);
+
+        mutate(
+          { content: formData.content },
+          {
+            onSuccess: () => {
+              setFormData({ content: "" });
+            },
+          },
+        );
       }}
     >
       <div className="flex items-start ">
@@ -57,9 +58,7 @@ function CreatePosts() {
           disabled={isPending || !formData.content.trim()}
         >
           <Send className="w-4 h-4 " />
-          <span className="text-card">
-            {isPending ? "Posting..." : "Post"}
-          </span>
+          <span className="text-card">{isPending ? "Posting..." : "Post"}</span>
         </button>
       </div>
     </form>

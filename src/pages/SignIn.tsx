@@ -1,11 +1,9 @@
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import api from "../lib/axios";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useSignIn } from "../hooks/useSignIn";
 
 const formDataSchema = z.object({
   email: z.email({ error: "Invalied email address" }),
@@ -13,19 +11,7 @@ const formDataSchema = z.object({
 });
 type formData = z.infer<typeof formDataSchema>;
 function SignIn() {
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-  async function login(formdata: formData) {
-    const res = await api.post("/api/authentication/login", formdata);
-    return res.data;
-  }
-  const { mutate, isPending, isError, error } = useMutation({
-    mutationFn: login,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["session"] });
-      navigate("/home");
-    },
-  });
+  const { mutate, isPending, isError, error } = useSignIn();
   const {
     register,
     handleSubmit,

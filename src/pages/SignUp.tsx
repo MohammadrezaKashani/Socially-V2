@@ -1,11 +1,9 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import api from "../lib/axios";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useSignUp } from "../hooks/useSignUp";
 
 const registerSchema = z.object({
   name: z.string().min(3, "Name must be at least 3 characters long "),
@@ -18,20 +16,7 @@ const registerSchema = z.object({
 
 type formData = z.infer<typeof registerSchema>;
 function SignUp() {
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  async function getData(formdata: formData) {
-    const res = await api.post("/api/authentication/register", formdata);
-    return res.data;
-  }
-
-  const { mutate, isPending, isError, error, isSuccess, data } = useMutation({
-    mutationFn: getData,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["session"] });
-      navigate("/home");
-    },
-  });
+  const { mutate, isPending, isError, error } = useSignUp();
 
   const {
     register,

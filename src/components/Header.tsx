@@ -1,32 +1,23 @@
-import React from "react";
 import menuIcon from "../assets/icons/menu.svg";
 import { HiOutlineHome } from "react-icons/hi";
 import { FiSun, FiMoon, FiBell, FiUser, FiLogOut, FiX } from "react-icons/fi";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import api from "../lib/axios";
-import { useMutation } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 import { useSession } from "../hooks/useSession";
+import { useLogout } from "../hooks/useLogout";
 
 function Header() {
-  const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
 
-  async function logout() {
-    const res = await api.post("/api/authentication/logout");
-    return res.data;
-  }
   const { data } = useSession();
   const user = data?.data?.user;
   const isLoggedIn = !!user;
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: logout,
-    onSuccess: () => {
-      setOpenMenu(false);
-      navigate("/signIn");
-    },
-  });
+  const { mutate:logout, isPending } = useLogout();
+  const handleLogout = () => {
+    setOpenMenu(false);
+    logout();
+  };
   return (
     <>
       <header className="bg-background sticky top-0 backdrop-blur-md px-2 py-5 border-b border-border ">
@@ -72,7 +63,7 @@ function Header() {
 
                   <button
                     type="button"
-                    onClick={() => mutate()}
+                    onClick={handleLogout}
                     disabled={isPending}
                     className=" gap-2 justify-center items-center text-primary text-sm hidden md:flex cursor-pointer"
                   >
@@ -125,7 +116,7 @@ function Header() {
 
                 <button
                   type="button"
-                  onClick={() => mutate()}
+                  onClick={handleLogout}
                   disabled={isPending}
                   className="flex gap-2 text-primary items-center  cursor-pointer justify-center hover:bg-asent hover:rounded-md py-1"
                 >

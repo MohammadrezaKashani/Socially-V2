@@ -1,37 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
 import { Heart, MessageCircle } from "lucide-react";
-import api from "../lib/axios";
 import { timeAgo } from "../utils/timeAgo";
 import { userName } from "../utils/userName";
+import { usePosts, type Post } from "../hooks/usePosts";
 
-type Post = {
-  id: string;
-  authorId: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-  author?: {
-    name?: string;
-    email?: string;
-    image?: string | null;
-  };
-  likes?: unknown[];
-  comments?: unknown[];
-  _count?: {
-    likes?: number;
-    comments?: number;
-  };
-};
-
-async function getPosts() {
-  const res = await api.get("/api/posts");
-  return res.data;
-}
 function Posts() {
-  const { data: response } = useQuery({
-    queryKey: ["posts"],
-    queryFn: getPosts,
-  });
+  const { data: response } = usePosts();
   return (
     <div className="flex flex-col gap-4">
       {response?.data?.map((post: Post) => (
@@ -64,7 +37,9 @@ function Posts() {
                   {" "}
                   {post.author?.name}
                 </span>
-                <span className="text-muted-foreground">@{userName(post.author?.email)}</span>
+                <span className="text-muted-foreground">
+                  @{userName(post.author?.email)}
+                </span>
                 <span className="text-muted-foreground">
                   {timeAgo(post.createdAt)}
                 </span>

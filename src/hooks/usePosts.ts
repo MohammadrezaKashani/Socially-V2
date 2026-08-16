@@ -24,7 +24,7 @@ export type PostsResponse = {
   data: Post[];
 };
 
-async function getPosts(): Promise<PostsResponse> {
+async function getPosts(){
   const res = await api.get<PostsResponse>("/api/posts");
   return res.data;
 }

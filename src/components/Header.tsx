@@ -9,6 +9,8 @@ import { useLogout } from "../hooks/useLogout";
 function Header() {
   const [openMenu, setOpenMenu] = useState(false);
 
+
+  
   const { data } = useSession();
   const user = data?.data?.user;
   const isLoggedIn = !!user;

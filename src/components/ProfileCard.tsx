@@ -45,7 +45,7 @@ function ProfileCard() {
         </div>
         <div className="flex items-center gap-2">
           <FiLink className="size-5" />
-          <p className="text-sm">{profile?.website || "Your Website"}</p>
+          <p className="text-sm">{profile?.website || "No Website"}</p>
         </div>
       </div>
       

@@ -15,6 +15,7 @@ type User = {
   _count: {
     followers: number;
     followings: number;
+    posts: number;
   };
 };
 type UserResponse = {
@@ -23,15 +24,15 @@ type UserResponse = {
   data: User;
 };
 
-const getUserProfile = async (userId: string) => {
-  const res = await api.get<UserResponse>(`/api/users/${userId}`);
+async function getUserProfile(userName: string) {
+  const res = await api.get<UserResponse>(`/api/users/${userName}/profile`);
   return res.data.data;
-};
+}
 
-export const useInformationUserId = (userId?: string) => {
+export const useInformationUserName = (userName?: string) => {
   return useQuery({
-    queryKey: ["user-profile", userId],
-    queryFn: () => getUserProfile(userId as string),
-    enabled: !!userId,
+    queryKey: ["userName-profile", userName],
+    queryFn: () => getUserProfile(userName as string),
+    enabled: !!userName,
   });
 };

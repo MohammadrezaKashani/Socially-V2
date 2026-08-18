@@ -3,13 +3,22 @@ import { FiLink } from "react-icons/fi";
 import { FaRegCalendar } from "react-icons/fa6";
 import EditProfileCard from "./EditProfileCard";
 import { useState } from "react";
+import { useSession } from "../hooks/useSession";
+import { useInformationUserName } from "../hooks/useInformationUserName";
+import { timeAgo } from "../utils/timeAgo";
+import { userName } from "../utils/userName";
 
 function EditProfile() {
-    const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
-    const handleEdit = () => {
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+  const handleEdit = () => {
     setIsEditProfileOpen(true);
   };
-    
+  const { data: sessionData } = useSession();
+  const user = sessionData?.data?.user;
+  const userNamee = user?.email;
+
+  const { data: profileName } = useInformationUserName(userName(userNamee));
+
   return (
     <div className="flex flex-col bg-card text-foreground rounded-xl border border-border py-6 gap-6 w-full max-w-xl mx-auto px-6 mb-7">
       <section>
@@ -19,24 +28,24 @@ function EditProfile() {
             src="src/assets/Images/Profilepic.png"
             alt="profile"
           />
-          <h2 className="font-extrabold">Name</h2>
+          <h2 className="font-extrabold">{profileName?.name}</h2>
           <p className="text-muted-foreground text-sm">
-            Your Id .................................
+            {userName(profileName?.email)}
           </p>
         </button>
       </section>
       <section className="w-full">
         <div className="flex justify-between items-center ">
           <div className="flex flex-col items-center">
-            <p className="font-bold">0</p>
+            <p className="font-bold">{profileName?._count?.followings}</p>
             <p className="text-muted-foreground">Following</p>
           </div>
           <div className="flex flex-col items-center">
-            <p className="font-bold">0</p>
+            <p className="font-bold">{profileName?._count?.followers}</p>
             <p className="text-muted-foreground">Followers</p>
           </div>
           <div className="flex flex-col items-center">
-            <p className="font-bold">0</p>
+            <p className="font-bold">{profileName?._count?.posts}</p>
             <p className="text-muted-foreground">Posts</p>
           </div>
         </div>
@@ -48,21 +57,24 @@ function EditProfile() {
         Edit Profile
       </button>
       {isEditProfileOpen && (
-        <EditProfileCard onClose={() => setIsEditProfileOpen(false)} />
+        <EditProfileCard onClose={() => setIsEditProfileOpen(false)}
+         profile={profileName}/>
       )}
       <section className="w-full text-muted-foreground">
         <div className="flex flex-col items-start justify-start gap-3">
           <div className="flex items-center gap-1.5">
             <IoLocationOutline />
-            <p className="text-sm">Your Location</p>
+            <p className="text-sm">{profileName?.location || "No location"}</p>
           </div>
           <div className="flex items-center gap-1.5">
             <FiLink />
-            <p className="text-sm">Your Website</p>
+            <p className="text-sm">{profileName?.website || "No Website"}</p>
           </div>
           <div className="flex items-center gap-1.5">
             <FaRegCalendar />
-            <p className="text-sm">..............</p>
+            <p className="text-sm">
+              {profileName && timeAgo(profileName.createdAt)}
+            </p>
           </div>
         </div>
       </section>

@@ -30,6 +30,10 @@ export function useUpdateProfile() {
 
   return useMutation({
     mutationFn: updateProfileApi,
-    // onSuccess:
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["userName-profile"] });
+      queryClient.invalidateQueries({ queryKey: ["session"] });
+      queryClient.invalidateQueries({ queryKey: ["user-profile"] });
+    },
   });
 }

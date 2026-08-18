@@ -1,40 +1,54 @@
 import TextareaAutosize from "react-textarea-autosize";
 import { IoClose } from "react-icons/io5";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "../hooks/useSession";
 import { useUpdateProfile } from "../hooks/useUpdateProfile";
 
 type EditProfileCardProps = {
   onClose: () => void;
+  profile?: {
+    name?: string;
+    bio?: string | null;
+    location?: string | null;
+    website?: string | null;
+  };
 };
 
-function EditProfileCard({ onClose }: EditProfileCardProps) {
-  const { data } = useSession();
-  const userId = data?.data?.user?.id;
-  
-  const { mutate: updateProfile } = useUpdateProfile();
-  function handleSaveChanges() {
-  if (!userId) return;
-
-  updateProfile(
-    {
-      userId,
-      name,
-      bio,
-      location,
-      website,
-    },
-    {
-      onSuccess: () => {
-        onClose();
-      },
-    }
-  );
-}
+function EditProfileCard({ onClose, profile }: EditProfileCardProps) {
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
   const [location, setLocation] = useState("");
   const [website, setWebsite] = useState("");
+  const { data } = useSession();
+  const userId = data?.data?.user?.id;
+
+  const { mutate: updateProfile } = useUpdateProfile();
+  useEffect(() => {
+    if (!profile) return;
+    setName(profile.name ?? "");
+    setBio(profile.bio ?? "");
+    setLocation(profile.location ?? "");
+    setWebsite(profile.website ?? "");
+  }, [profile]);
+  function handleSaveChanges() {
+    if (!userId) return;
+
+    updateProfile(
+      {
+        userId,
+        name,
+        bio,
+        location,
+        website,
+      },
+      {
+        onSuccess: () => {
+          onClose();
+        },
+      },
+    );
+  }
+
   return (
     <div className="text-white fixed inset-0 z-50 flex items-center justify-center bg-black/50 ">
       <div className="sm:w-[90%] md:w-[40%] xl:w-1/4 rounded-xl bg-background border border-border p-7">

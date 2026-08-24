@@ -34,4 +34,5 @@ export function useUserposts(userId?:string) {
         queryKey: ["userposts",userId],
         queryFn: ()=>Posts(userId!),
     })
+  
 }
